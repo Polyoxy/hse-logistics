@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSE Logistics - Document Submission & Careers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+        }
+        
+        .file-drop-area {
+            border: 2px dashed #93c5fd;
+            transition: all 0.3s ease;
+        }
+        
+        .file-drop-area.active {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+        }
+        
+        .modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        
+        .modal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-truck text-blue-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">HSE Logistics</span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="#home" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                    <a href="#services" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Services</a>
+                    <a href="#documents" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Submit Documents</a>
+                    <a href="#careers" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Careers</a>
+                    <a href="#contact" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Contact</a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#home" class="bg-blue-50 text-blue-600 block pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium">Home</a>
+                <a href="#services" class="text-gray-900 hover:bg-gray-50 hover:text-blue-600 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium">Services</a>
+                <a href="#documents" class="text-gray-900 hover:bg-gray-50 hover:text-blue-600 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium">Submit Documents</a>
+                <a href="#careers" class="text-gray-900 hover:bg-gray-50 hover:text-blue-600 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium">Careers</a>
+                <a href="#contact" class="text-gray-900 hover:bg-gray-50 hover:text-blue-600 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="md:flex md:items-center md:justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">Your Trusted Logistics Partner</h1>
+                    <p class="text-xl mb-8">We ship it all - safely, securely, and on time. HSE Logistics delivers solutions tailored to your needs.</p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#documents" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-medium text-center transition duration-300">Submit Documents</a>
+                        <button id="driver-application-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">Driver Application</button>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1609973840110-74bd08b5a521?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Truck on highway" class="rounded-lg shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Services</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Comprehensive logistics solutions designed to meet your business needs</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition duration-300">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-truck text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Freight Transportation</h3>
+                    <p class="text-gray-600">Reliable and efficient transportation services for all your freight needs, from local deliveries to cross-country shipments.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition duration-300">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-warehouse text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Warehousing</h3>
+                    <p class="text-gray-600">Secure storage solutions with inventory management to keep your goods safe until they're ready for distribution.</p>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition duration-300">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-boxes text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Supply Chain Solutions</h3>
+                    <p class="text-gray-600">End-to-end supply chain management to optimize your logistics operations and reduce costs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Document Submission Section -->
+    <section id="documents" class="py-20 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Submit Your Documents</h2>
+                <p class="text-xl text-gray-600">We accept various file formats including PDFs, spreadsheets, images, and multimedia files.</p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <form id="document-form">
+                    <div class="mb-6">
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="organization" class="block text-sm font-medium text-gray-700 mb-1">Organization (if applicable)</label>
+                        <input type="text" id="organization" name="organization" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="purpose" class="block text-sm font-medium text-gray-700 mb-1">Purpose of Submission</label>
+                        <select id="purpose" name="purpose" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                            <option value="quote">Request a Quote</option>
+                            <option value="shipment">Shipment Documentation</option>
+                            <option value="billing">Billing/Payment</option>
+                            <option value="employment">Employment Application</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">File Upload</label>
+                        <div id="file-drop-area" class="file-drop-area relative border-2 border-dashed rounded-lg p-12 text-center cursor-pointer">
+                            <div class="flex flex-col items-center justify-center">
+                                <i class="fas fa-cloud-upload-alt text-blue-500 text-4xl mb-3"></i>
+                                <p class="text-gray-600 mb-1">Drag & drop your files here or click to browse</p>
+                                <p class="text-sm text-gray-500">Accepted formats: PDF, TXT, Google Sheets, Excel, Images (PNG, JPG), Audio, Video</p>
+                            </div>
+                            <input type="file" id="file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" multiple>
+                        </div>
+                        <div id="file-list" class="mt-4 space-y-2"></div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Additional Notes</label>
+                        <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300">
+                        Submit Documents
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers Section -->
+    <section id="careers" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Join Our Team</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">We're always looking for talented individuals to join the HSE Logistics family</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-6">
+                            <i class="fas fa-truck text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">Professional Drivers</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">We're seeking experienced, safety-conscious drivers to join our fleet. Competitive pay, benefits, and a supportive work environment.</p>
+                    <button id="driver-career-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition duration-300">Apply Now</button>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-6">
+                            <i class="fas fa-users text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900">Operations Team</h3>
+                    </div>
+                    <p class="text-gray-600 mb-6">Join our logistics coordination team to help manage shipments, customer service, and warehouse operations.</p>
+                    <button id="operations-career-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition duration-300">Apply Now</button>
+                </div>
+            </div>
+            
+            <div class="bg-blue-50 p-8 rounded-xl">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Why Work With Us?</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="flex items-start">
+                        <i class="fas fa-dollar-sign text-blue-600 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Competitive Compensation</h4>
+                            <p class="text-gray-600 text-sm">We offer industry-leading pay and benefits packages.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-heartbeat text-blue-600 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Health & Wellness</h4>
+                            <p class="text-gray-600 text-sm">Comprehensive health insurance and wellness programs.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-graduation-cap text-blue-600 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="font-medium text-gray-900">Career Growth</h4>
+                            <p class="text-gray-600 text-sm">Opportunities for advancement and professional development.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Contact Us</h2>
+                <p class="text-xl text-gray-600">Get in touch with our team for any questions or inquiries</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Send Us a Message</h3>
+                    <form>
+                        <div class="mb-6">
+                            <label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <input type="text" id="contact-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="contact-email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="contact-subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                            <input type="text" id="contact-subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="contact-message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="contact-message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-phone-alt text-blue-600 mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Phone</h4>
+                                    <p class="text-gray-600">786-572-9215</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-blue-600 mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Email</h4>
+                                    <p class="text-gray-600">hselog2023@gmail.com</p>
+                                    <p class="text-gray-600">prodkhai@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-clock text-blue-600 mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Business Hours</h4>
+                                    <p class="text-gray-600">Monday - Friday: 8:00 AM - 6:00 PM</p>
+                                    <p class="text-gray-600">Saturday: 9:00 AM - 2:00 PM</p>
+                                    <p class="text-gray-600">Sunday: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-6 rounded-xl">
+                        <h4 class="font-medium text-gray-900 mb-3">Need immediate assistance?</h4>
+                        <p class="text-gray-600 mb-4">Our customer service team is available to help with any urgent matters during business hours.</p>
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-300">
+                            <i class="fas fa-phone-alt mr-2"></i> Call Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">HSE Logistics</h3>
+                    <p class="text-gray-400">Your trusted partner for all shipping and logistics needs. We ship it all - safely, securely, and on time.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition">Services</a></li>
+                        <li><a href="#documents" class="text-gray-400 hover:text-white transition">Submit Documents</a></li>
+                        <li><a href="#careers" class="text-gray-400 hover:text-white transition">Careers</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Freight Transportation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Warehousing</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Supply Chain Solutions</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Expedited Shipping</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Specialized Hauling</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <p class="text-gray-400">Subscribe to our newsletter for updates</p>
+                    <div class="mt-3 flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg text-gray-900 w-full">
+                        <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r-lg">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2023 HSE Logistics. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Driver Application Modal -->
+    <div id="driver-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop opacity-0 pointer-events-none transition duration-300">
+        <div class="modal relative bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+                <h3 class="text-xl font-bold text-gray-900">Driver Employment Application</h3>
+                <button id="close-modal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="p-6">
+                <form id="driver-form">
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Personal Information</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="driver-first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                <input type="text" id="driver-first-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="driver-last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                <input type="text" id="driver-last-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="driver-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" id="driver-phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="driver-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" id="driver-email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="driver-address" class="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
+                                <input type="text" id="driver-address" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="driver-city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                <input type="text" id="driver-city" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="driver-state" class="block text-sm font-medium text-gray-700 mb-1">State</label>
+                                <select id="driver-state" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                                    <option value="">Select State</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="driver-zip" class="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
+                                <input type="text" id="driver-zip" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Driver License Information</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="driver-license-number" class="block text-sm font-medium text-gray-700 mb-1">License Number</label>
+                                <input type="text" id="driver-license-number" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="driver-license-state" class="block text-sm font-medium text-gray-700 mb-1">License State</label>
+                                <select id="driver-license-state" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                                    <option value="">Select State</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="driver-license-expiry" class="block text-sm font-medium text-gray-700 mb-1">Expiration Date</label>
+                                <input type="date" id="driver-license-expiry" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="driver-license-class" class="block text-sm font-medium text-gray-700 mb-1">License Class</label>
+                                <select id="driver-license-class" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                                    <option value="">Select Class</option>
+                                    <option value="A">Class A</option>
+                                    <option value="B">Class B</option>
+                                    <option value="C">Class C</option>
+                                    <option value="D">Class D</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Employment History</h4>
+                        <div class="space-y-6">
+                            <div class="employment-history-item">
+                                <div class="grid md:grid-cols-2 gap-6 mb-4">
+                                    <div>
+                                        <label for="employer-1-name" class="block text-sm font-medium text-gray-700 mb-1">Employer Name</label>
+                                        <input type="text" id="employer-1-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                    <div>
+                                        <label for="employer-1-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                        <input type="tel" id="employer-1-phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                    <div>
+                                        <label for="employer-1-position" class="block text-sm font-medium text-gray-700 mb-1">Position Held</label>
+                                        <input type="text" id="employer-1-position" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                    <div>
+                                        <label for="employer-1-supervisor" class="block text-sm font-medium text-gray-700 mb-1">Supervisor Name</label>
+                                        <input type="text" id="employer-1-supervisor" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                    <div>
+                                        <label for="employer-1-start" class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                                        <input type="date" id="employer-1-start" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                    <div>
+                                        <label for="employer-1-end" class="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                                        <input type="date" id="employer-1-end" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="employer-1-reason" class="block text-sm font-medium text-gray-700 mb-1">Reason for Leaving</label>
+                                    <input type="text" id="employer-1-reason" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                </div>
+                            </div>
+                            
+                            <button type="button" id="add-employer" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                                <i class="fas fa-plus-circle mr-2"></i> Add Another Employer
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Driving Experience</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="total-experience" class="block text-sm font-medium text-gray-700 mb-1">Total Years of Driving Experience</label>
+                                <input type="number" id="total-experience" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                            <div>
+                                <label for="tractor-trailer-experience" class="block text-sm font-medium text-gray-700 mb-1">Years of Tractor-Trailer Experience</label>
+                                <input type="number" id="tractor-trailer-experience" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Accident History (Last 3 Years)</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <input type="radio" id="accident-no" name="accident-history" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" checked>
+                                <label for="accident-no" class="ml-2 block text-sm text-gray-700">No accidents</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="accident-yes" name="accident-history" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="accident-yes" class="ml-2 block text-sm text-gray-700">Yes, I've had accidents</label>
+                            </div>
+                            
+                            <div id="accident-details" class="hidden mt-4 space-y-4">
+                                <div class="accident-item">
+                                    <div class="grid md:grid-cols-2 gap-6 mb-4">
+                                        <div>
+                                            <label for="accident-1-date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                            <input type="date" id="accident-1-date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div>
+                                            <label for="accident-1-location" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                            <input type="text" id="accident-1-location" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div>
+                                            <label for="accident-1-fatalities" class="block text-sm font-medium text-gray-700 mb-1">Fatalities</label>
+                                            <input type="number" id="accident-1-fatalities" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div>
+                                            <label for="accident-1-injuries" class="block text-sm font-medium text-gray-700 mb-1">Injuries</label>
+                                            <input type="number" id="accident-1-injuries" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="accident-1-description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                                        <textarea id="accident-1-description" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+                                    </div>
+                                </div>
+                                
+                                <button type="button" id="add-accident" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                                    <i class="fas fa-plus-circle mr-2"></i> Add Another Accident
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Traffic Violations (Last 3 Years)</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <input type="radio" id="violation-no" name="violation-history" value="no" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300" checked>
+                                <label for="violation-no" class="ml-2 block text-sm text-gray-700">No violations</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="radio" id="violation-yes" name="violation-history" value="yes" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <label for="violation-yes" class="ml-2 block text-sm text-gray-700">Yes, I've had violations</label>
+                            </div>
+                            
+                            <div id="violation-details" class="hidden mt-4 space-y-4">
+                                <div class="violation-item">
+                                    <div class="grid md:grid-cols-2 gap-6 mb-4">
+                                        <div>
+                                            <label for="violation-1-date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                            <input type="date" id="violation-1-date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div>
+                                            <label for="violation-1-location" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                            <input type="text" id="violation-1-location" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div>
+                                            <label for="violation-1-charge" class="block text-sm font-medium text-gray-700 mb-1">Charge</label>
+                                            <input type="text" id="violation-1-charge" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div>
+                                            <label for="violation-1-penalty" class="block text-sm font-medium text-gray-700 mb-1">Penalty</label>
+                                            <input type="text" id="violation-1-penalty" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <button type="button" id="add-violation" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                                    <i class="fas fa-plus-circle mr-2"></i> Add Another Violation
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4 border-b pb-2">Upload Documents</h4>
+                        <div class="file-drop-area relative border-2 border-dashed rounded-lg p-8 text-center cursor-pointer mb-4">
+                            <div class="flex flex-col items-center justify-center">
+                                <i class="fas fa-cloud-upload-alt text-blue-500 text-4xl mb-3"></i>
+                                <p class="text-gray-600 mb-1">Upload your driver's license, medical certificate, and other relevant documents</p>
+                                <p class="text-sm text-gray-500">Accepted formats: PDF, JPG, PNG</p>
+                            </div>
+                            <input type="file" id="driver-file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" multiple>
+                        </div>
+                        <div id="driver-file-list" class="space-y-2"></div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="driver-agreement" name="driver-agreement" type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded" required>
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="driver-agreement" class="font-medium text-gray-700">I certify that all information provided is true and complete to the best of my knowledge.</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" id="cancel-driver-form" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-6 rounded-lg transition duration-300">
+                            Cancel
+                        </button>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-300">
+                            Submit Application
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // File upload functionality for document submission
+        const fileDropArea = document.getElementById('file-drop-area');
+        const fileInput = document.getElementById('file-input');
+        const fileList = document.getElementById('file-list');
+
+        fileDropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileDropArea.classList.add('active');
+        });
+
+        fileDropArea.addEventListener('dragleave', () => {
+            fileDropArea.classList.remove('active');
+        });
+
+        fileDropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileDropArea.classList.remove('active');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', () => {
+            handleFiles(fileInput.files);
+        });
+
+        function handleFiles(files) {
+            fileList.innerHTML = '';
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const fileItem = document.createElement('div');
+                fileItem.className = 'flex items-center justify-between bg-gray-100 p-3 rounded-lg';
+                fileItem.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fas fa-file-alt text-blue-500 mr-3"></i>
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">${file.name}</p>
+                            <p class="text-xs text-gray-500">${formatFileSize(file.size)}</p>
+                        </div>
+                    </div>
+                    <button type="button" class="text-red-500 hover:text-red-700" data-index="${i}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                fileList.appendChild(fileItem);
+            }
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('#file-list button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    removeFile(index);
+                });
+            });
+        }
+
+        function removeFile(index) {
+            // Create a new DataTransfer object
+            const dataTransfer = new DataTransfer();
+            
+            // Add all files except the one to be removed
+            for (let i = 0; i < fileInput.files.length; i++) {
+                if (i != index) {
+                    dataTransfer.items.add(fileInput.files[i]);
+                }
+            }
+            
+            // Update the file input
+            fileInput.files = dataTransfer.files;
+            
+            // Refresh the file list display
+            handleFiles(fileInput.files);
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Driver application modal
+        const driverModal = document.getElementById('driver-modal');
+        const driverModalBtn = document.getElementById('driver-application-btn');
+        const driverCareerBtn = document.getElementById('driver-career-btn');
+        const operationsCareerBtn = document.getElementById('operations-career-btn');
+        const closeModalBtn = document.getElementById('close-modal');
+        const cancelDriverFormBtn = document.getElementById('cancel-driver-form');
+
+        function toggleModal() {
+            driverModal.classList.toggle('opacity-0');
+            driverModal.classList.toggle('pointer-events-none');
+            driverModal.classList.toggle('backdrop');
+            document.querySelector('.modal').classList.toggle('active');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        driverModalBtn.addEventListener('click', toggleModal);
+        driverCareerBtn.addEventListener('click', toggleModal);
+        operationsCareerBtn.addEventListener('click', toggleModal);
+        closeModalBtn.addEventListener('click', toggleModal);
+        cancelDriverFormBtn.addEventListener('click', toggleModal);
+
+        // Accident history toggle
+        document.getElementById('accident-yes').addEventListener('change', function() {
+            document.getElementById('accident-details').classList.toggle('hidden', !this.checked);
+        });
+
+        // Violation history toggle
+        document.getElementById('violation-yes').addEventListener('change', function() {
+            document.getElementById('violation-details').classList.toggle('hidden', !this.checked);
+        });
+
+        // Add employer
+        let employerCount = 1;
+        document.getElementById('add-employer').addEventListener('click', function() {
+            employerCount++;
+            const newEmployer = document.createElement('div');
+            newEmployer.className = 'employment-history-item mt-6 border-t pt-6';
+            newEmployer.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label for="employer-${employerCount}-name" class="block text-sm font-medium text-gray-700 mb-1">Employer Name</label>
+                        <input type="text" id="employer-${employerCount}-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="employer-${employerCount}-phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <input type="tel" id="employer-${employerCount}-phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="employer-${employerCount}-position" class="block text-sm font-medium text-gray-700 mb-1">Position Held</label>
+                        <input type="text" id="employer-${employerCount}-position" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="employer-${employerCount}-supervisor" class="block text-sm font-medium text-gray-700 mb-1">Supervisor Name</label>
+                        <input type="text" id="employer-${employerCount}-supervisor" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="employer-${employerCount}-start" class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                        <input type="date" id="employer-${employerCount}-start" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="employer-${employerCount}-end" class="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                        <input type="date" id="employer-${employerCount}-end" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="employer-${employerCount}-reason" class="block text-sm font-medium text-gray-700 mb-1">Reason for Leaving</label>
+                    <input type="text" id="employer-${employerCount}-reason" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button type="button" class="remove-employer text-red-600 hover:text-red-800 font-medium flex items-center">
+                    <i class="fas fa-minus-circle mr-2"></i> Remove Employer
+                </button>
+            `;
+            document.querySelector('.employment-history-item:last-child').after(newEmployer);
+            
+            // Add event listener to the new remove button
+            newEmployer.querySelector('.remove-employer').addEventListener('click', function() {
+                newEmployer.remove();
+            });
+        });
+
+        // Add accident
+        let accidentCount = 1;
+        document.getElementById('add-accident').addEventListener('click', function() {
+            accidentCount++;
+            const newAccident = document.createElement('div');
+            newAccident.className = 'accident-item mt-6 border-t pt-6';
+            newAccident.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label for="accident-${accidentCount}-date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                        <input type="date" id="accident-${accidentCount}-date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="accident-${accidentCount}-location" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                        <input type="text" id="accident-${accidentCount}-location" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="accident-${accidentCount}-fatalities" class="block text-sm font-medium text-gray-700 mb-1">Fatalities</label>
+                        <input type="number" id="accident-${accidentCount}-fatalities" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="accident-${accidentCount}-injuries" class="block text-sm font-medium text-gray-700 mb-1">Injuries</label>
+                        <input type="number" id="accident-${accidentCount}-injuries" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="accident-${accidentCount}-description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea id="accident-${accidentCount}-description" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+                <button type="button" class="remove-accident text-red-600 hover:text-red-800 font-medium flex items-center">
+                    <i class="fas fa-minus-circle mr-2"></i> Remove Accident
+                </button>
+            `;
+            document.querySelector('.accident-item:last-child').after(newAccident);
+            
+            // Add event listener to the new remove button
+            newAccident.querySelector('.remove-accident').addEventListener('click', function() {
+                newAccident.remove();
+            });
+        });
+
+        // Add violation
+        let violationCount = 1;
+        document.getElementById('add-violation').addEventListener('click', function() {
+            violationCount++;
+            const newViolation = document.createElement('div');
+            newViolation.className = 'violation-item mt-6 border-t pt-6';
+            newViolation.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-6 mb-4">
+                    <div>
+                        <label for="violation-${violationCount}-date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                        <input type="date" id="violation-${violationCount}-date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="violation-${violationCount}-location" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                        <input type="text" id="violation-${violationCount}-location" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="violation-${violationCount}-charge" class="block text-sm font-medium text-gray-700 mb-1">Charge</label>
+                        <input type="text" id="violation-${violationCount}-charge" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label for="violation-${violationCount}-penalty" class="block text-sm font-medium text-gray-700 mb-1">Penalty</label>
+                        <input type="text" id="violation-${violationCount}-penalty" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+                <button type="button" class="remove-violation text-red-600 hover:text-red-800 font-medium flex items-center">
+                    <i class="fas fa-minus-circle mr-2"></i> Remove Violation
+                </button>
+            `;
+            document.querySelector('.violation-item:last-child').after(newViolation);
+            
+            // Add event listener to the new remove button
+            newViolation.querySelector('.remove-violation').addEventListener('click', function() {
+                newViolation.remove();
+            });
+        });
+
+        // File upload functionality for driver application
+        const driverFileDropArea = document.querySelector('#driver-modal .file-drop-area');
+        const driverFileInput = document.getElementById('driver-file-input');
+        const driverFileList = document.getElementById('driver-file-list');
+
+        driverFileDropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            driverFileDropArea.classList.add('active');
+        });
+
+        driverFileDropArea.addEventListener('dragleave', () => {
+            driverFileDropArea.classList.remove('active');
+        });
+
+        driverFileDropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            driverFileDropArea.classList.remove('active');
+            handleDriverFiles(e.dataTransfer.files);
+        });
+
+        driverFileInput.addEventListener('change', () => {
+            handleDriverFiles(driverFileInput.files);
+        });
+
+        function handleDriverFiles(files) {
+            driverFileList.innerHTML = '';
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const fileItem = document.createElement('div');
+                fileItem.className = 'flex items-center justify-between bg-gray-100 p-3 rounded-lg';
+                fileItem.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fas fa-file-alt text-blue-500 mr-3"></i>
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">${file.name}</p>
+                            <p class="text-xs text-gray-500">${formatFileSize(file.size)}</p>
+                        </div>
+                    </div>
+                    <button type="button" class="text-red-500 hover:text-red-700" data-driver-index="${i}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                driverFileList.appendChild(fileItem);
+            }
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('#driver-file-list button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-driver-index');
+                    removeDriverFile(index);
+                });
+            });
+        }
+
+        function removeDriverFile(index) {
+            // Create a new DataTransfer object
+            const dataTransfer = new DataTransfer();
+            
+            // Add all files except the one to be removed
+            for (let i = 0; i < driverFileInput.files.length; i++) {
+                if (i != index) {
+                    dataTransfer.items.add(driverFileInput.files[i]);
+                }
+            }
+            
+            // Update the file input
+            driverFileInput.files = dataTransfer.files;
+            
+            // Refresh the file list display
+            handleDriverFiles(driverFileInput.files);
+        }
+
+        // Form submission
+        document.getElementById('document-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Your documents have been submitted successfully! We will contact you soon.');
+            this.reset();
+            fileList.innerHTML = '';
+        });
+
+        document.getElementById('driver-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Your driver application has been submitted successfully! We will review your information and contact you soon.');
+            this.reset();
+            driverFileList.innerHTML = '';
+            toggleModal();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

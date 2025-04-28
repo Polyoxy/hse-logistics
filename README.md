@@ -1,3 +1,72 @@
+# HSE Logistics Website
+
+A modern, responsive website for HSE Logistics, featuring document submission and a careers portal. Built with Next.js, Tailwind CSS, and Firebase, it provides a seamless experience for clients and prospective employees.
+
+---
+
+## 🚀 Features
+- Professional landing page showcasing logistics services
+- Secure document submission (multi-format)
+- Careers portal with driver application form
+- Contact section with company details
+- Responsive, accessible, and modern UI/UX
+- Firebase backend: Firestore, Storage, Hosting, Auth
+- Cloudflare-managed domain, DNS, and SSL
+
+---
+
+## 🛠️ Tech Stack
+- **Frontend:** Next.js (React), Tailwind CSS
+- **Backend:** Firebase (Firestore, Storage, Hosting, Auth)
+- **DevOps:** Cloudflare (domain, DNS, SSL)
+
+---
+
+## 🏁 Getting Started
+
+### Prerequisites
+- Node.js (v16+ recommended)
+- npm or yarn
+- Firebase project (see below)
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Polyoxy/hse-logistics.git
+   cd hse-logistics
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+3. Configure Firebase:
+   - Create a Firebase project.
+   - Add your Firebase config to the project (see `project-plan.md` for details).
+
+### Running Locally
+```bash
+npm run dev
+# or
+yarn dev
+```
+Visit [http://localhost:3000](http://localhost:3000) to view the app.
+
+### Deployment
+- Deploy to Firebase Hosting or your preferred platform.
+- Ensure environment variables and Firebase configuration are set for production.
+
+---
+
+## 🤝 Contributing
+Contributions are welcome! Please open issues or submit pull requests for improvements and bug fixes.
+
+---
+
+## 📄 License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started (Mac & Windows)
@@ -61,3 +130,67 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+=======
+# HSE Logistics Website
+
+A modern, responsive website for HSE Logistics, featuring document submission and a careers portal. Built with Next.js, Tailwind CSS, and Firebase, it provides a seamless experience for clients and prospective employees.
+
+---
+
+## 🚀 Features
+- Professional landing page showcasing logistics services
+- Secure document submission (multi-format)
+- Careers portal with driver application form
+- Contact section with company details
+- Responsive, accessible, and modern UI/UX
+- Firebase backend: Firestore, Storage, Hosting, Auth
+- Cloudflare-managed domain, DNS, and SSL
+
+---
+
+## 🛠️ Tech Stack
+- **Frontend:** Next.js (React), Tailwind CSS
+- **Backend:** Firebase (Firestore, Storage, Hosting, Auth)
+- **DevOps:** Cloudflare (domain, DNS, SSL)
+
+---
+
+## 🏁 Getting Started
+
+### Prerequisites
+- Node.js (v16+ recommended)
+- npm or yarn
+- Firebase project (see below)
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-org/hse-logistics.git
+   cd hse-logistics
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+3. Configure Firebase:
+   - Create a Firebase project.
+   - Add your Firebase config to the project (see `project-plan.md` for details).
+
+### Running Locally
+```bash
+npm run dev
+# or
+yarn dev
+```
+Visit [http://localhost:3000](http://localhost:3000) to view the app.
+
+### Deployment
+- Deploy to Firebase Hosting or your preferred platform.
+- Ensure environment variables and Firebase configuration are set for production.
+
+---
+
+## 🤝 Contributing
+Contributions are welcome! Please open issues or submit pull requests for improvements and bug fixes.
