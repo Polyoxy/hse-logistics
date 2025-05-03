@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import AuthLayout from "@/app/layout/AuthLayout";
 
 export default function SignupPage() {
   const [name, setName] = useState('');
@@ -37,7 +38,7 @@ export default function SignupPage() {
     try {
       setIsLoading(true);
       setError('');
-      await signUp(email, password, name);
+      await signUp(email, password, name, "user");
       router.push('/dashboard');
     } catch (err: any) {
       setError(err?.message || 'Failed to create an account');
@@ -47,109 +48,124 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <div className="max-w-md w-full">
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-foreground">Create an Account</h1>
-          <p className="text-foreground/70 mt-2">Sign up to access the HSE Logistics document portal</p>
-        </div>
-        
-        <div className="card p-8">
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4" role="alert">
-              <p>{error}</p>
-            </div>
-          )}
+    <AuthLayout>
+      <div className="min-h-screen flex items-center justify-center bg-background px-4">
+        <div className="max-w-md w-full space-y-8">
+          <div className="text-center mb-10">
+            <h1 className="text-4xl font-bold text-foreground">Create an Account</h1>
+            <p className="text-xl text-foreground/80 max-w-md mx-auto mt-2">Join HSE Logistics to manage your logistics operations and access our document portal.</p>
+          </div>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1">
-                Full Name
-              </label>
-              <input
-                id="name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full p-3 rounded-lg focus:ring-2 focus:ring-accent bg-surface-alt text-foreground"
-                placeholder="John Doe"
-                required
-              />
-            </div>
+          <div className="card p-8 hover:ring-2 hover:ring-accent transition duration-300">
+            {error && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-4" role="alert">
+                <p>{error}</p>
+              </div>
+            )}
             
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
-                Email Address
-              </label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 rounded-lg focus:ring-2 focus:ring-accent bg-surface-alt text-foreground"
-                placeholder="you@example.com"
-                required
-              />
-            </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                  Full Name
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full p-4 rounded-lg focus:ring-2 focus:ring-accent bg-surface-alt text-foreground placeholder:text-foreground/40 shadow-sm"
+                  placeholder="John Doe"
+                  required
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                  Email Address
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-4 rounded-lg focus:ring-2 focus:ring-accent bg-surface-alt text-foreground placeholder:text-foreground/40 shadow-sm"
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
+                  Password
+                </label>
+                <div className="relative">
+                  <input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full p-4 rounded-lg focus:ring-2 focus:ring-accent bg-surface-alt text-foreground placeholder:text-foreground/40 shadow-sm pr-10"
+                    placeholder="••••••••"
+                    required
+                  />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground/40">
+                    <i className="fas fa-lock"></i>
+                  </span>
+                </div>
+              </div>
+              
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-foreground mb-2">
+                  Confirm Password
+                </label>
+                <div className="relative">
+                  <input
+                    id="confirmPassword"
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="w-full p-4 rounded-lg focus:ring-2 focus:ring-accent bg-surface-alt text-foreground placeholder:text-foreground/40 shadow-sm pr-10"
+                    placeholder="••••••••"
+                    required
+                  />
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground/40">
+                    <i className="fas fa-lock"></i>
+                  </span>
+                </div>
+              </div>
+              
+              <div>
+                <button
+                  type="submit"
+                  className="w-full btn bg-accent hover:bg-blue-600 text-white py-3 rounded-lg transition duration-300 flex items-center justify-center"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <div className="flex items-center justify-center">
+                      <div className="h-5 w-5 border-t-2 border-r-2 border-white rounded-full animate-spin mr-2"></div>
+                      Creating account...
+                    </div>
+                  ) : (
+                    <>
+                      <i className="fas fa-user-plus mr-2"></i>
+                      Sign Up
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
             
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-3 rounded-lg focus:ring-2 focus:ring-accent bg-surface-alt text-foreground"
-                placeholder="••••••••"
-                required
-              />
+            <div className="text-center mt-6">
+              <p className="text-foreground/70">
+                Already have an account?{' '}
+                <Link href="/login" className="text-accent hover:text-accent/80 transition-colors">
+                  Log in
+                </Link>
+              </p>
             </div>
-            
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-foreground mb-1">
-                Confirm Password
-              </label>
-              <input
-                id="confirmPassword"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full p-3 rounded-lg focus:ring-2 focus:ring-accent bg-surface-alt text-foreground"
-                placeholder="••••••••"
-                required
-              />
-            </div>
-            
-            <div>
-              <button
-                type="submit"
-                className="w-full btn bg-accent hover:bg-blue-600 text-white py-3 rounded-lg transition duration-300"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <div className="flex items-center justify-center">
-                    <div className="h-5 w-5 border-t-2 border-r-2 border-white rounded-full animate-spin mr-2"></div>
-                    Creating Account...
-                  </div>
-                ) : (
-                  'Sign Up'
-                )}
-              </button>
-            </div>
-          </form>
-          
-          <div className="mt-6 text-center">
-            <p className="text-foreground/70">
-              Already have an account?{' '}
-              <Link href="/login" className="text-accent hover:underline">
-                Log in
-              </Link>
-            </p>
           </div>
         </div>
       </div>
-    </div>
+    </AuthLayout>
   );
 }

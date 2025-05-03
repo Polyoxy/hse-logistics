@@ -1,21 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { collection, query, where, getDocs, addDoc, serverTimestamp, Timestamp } from 'firebase/firestore';
+import { collection, query, where, getDocs, serverTimestamp, Timestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '@/lib/firebase';
-
-interface Document {
-  id: string;
-  userId: string;
-  name: string;
-  type: string;
-  size: number;
-  url: string;
-  createdAt: Timestamp | Date;
-}
+import DocumentList from '@/components/dashboard/DocumentList';
+import FileUpload from '@/components/dashboard/FileUpload';
+import { Document } from '@/types';
+import Link from 'next/link';
 
 export default function DashboardPage() {
   const { user, loading, logout } = useAuth();
@@ -24,6 +18,32 @@ export default function DashboardPage() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [activeTab, setActiveTab] = useState('documents');
+  const [search, setSearch] = useState('');
+
+  // Storage usage calculation
+  const totalStorageUsed = useMemo(() => {
+    return documents.reduce((acc, doc) => acc + (doc.size || 0), 0);
+  }, [documents]);
+  const maxStorage = 100 * 1024 * 1024; // 100 MB quota for example
+
+  // Recent activity (last 5 documents)
+  const recentDocuments = useMemo(() => {
+    return [...documents]
+      .sort((a, b) => {
+        const aDate = a.createdAt && 'toDate' in a.createdAt ? a.createdAt.toDate() : a.createdAt;
+        const bDate = b.createdAt && 'toDate' in b.createdAt ? b.createdAt.toDate() : b.createdAt;
+        return (bDate ? new Date(bDate) : 0) - (aDate ? new Date(aDate) : 0);
+      })
+      .slice(0, 5);
+  }, [documents]);
+
+  // Filtered documents
+  const filteredDocuments = useMemo(() => {
+    return documents.filter(doc =>
+      doc.name.toLowerCase().includes(search.toLowerCase()) ||
+      doc.type.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [documents, search]);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -130,219 +150,130 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Dashboard Header */}
-      <header className="bg-surface shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-foreground">HSE Logistics Dashboard</h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="text-right">
-                <p className="text-foreground font-medium">{user?.displayName || 'User'}</p>
-                <p className="text-foreground/70 text-sm">{user?.email}</p>
-              </div>
-              <button
-                onClick={handleLogout}
-                className="btn bg-surface-alt hover:bg-surface/80 text-accent px-4 py-2 rounded-lg"
-              >
-                Logout
-              </button>
-            </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4">
+          <div>
+            <h1 className="text-4xl font-bold text-foreground mb-1">Dashboard</h1>
+            <p className="text-foreground/70 text-lg">Welcome, {user?.displayName || user?.email}</p>
           </div>
         </div>
-      </header>
 
-      {/* Dashboard Navigation */}
-      <nav className="bg-surface-alt border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex space-x-8">
-            <button
-              className={`px-4 py-4 text-sm font-medium ${
-                activeTab === 'documents'
-                  ? 'border-b-2 border-accent text-accent'
-                  : 'text-foreground/70 hover:text-accent'
-              }`}
-              onClick={() => setActiveTab('documents')}
-            >
-              Documents
-            </button>
-            <button
-              className={`px-4 py-4 text-sm font-medium ${
-                activeTab === 'uploads'
-                  ? 'border-b-2 border-accent text-accent'
-                  : 'text-foreground/70 hover:text-accent'
-              }`}
-              onClick={() => setActiveTab('uploads')}
-            >
-              Upload
-            </button>
-            <button
-              className={`px-4 py-4 text-sm font-medium ${
-                activeTab === 'settings'
-                  ? 'border-b-2 border-accent text-accent'
-                  : 'text-foreground/70 hover:text-accent'
-              }`}
-              onClick={() => setActiveTab('settings')}
-            >
-              Settings
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Dashboard Content */}
-      <main className="py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {activeTab === 'documents' && (
+        {/* Bento Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Storage Usage Card */}
+          <div className="card p-6 flex flex-col justify-between shadow-lg hover:ring-2 hover:ring-accent transition">
             <div>
-              <h2 className="text-xl font-semibold text-foreground mb-6">Your Documents</h2>
-              
-              {documents.length === 0 ? (
-                <div className="card p-8 text-center">
-                  <div className="flex flex-col items-center justify-center">
-                    <i className="fas fa-file-alt text-accent text-4xl mb-4"></i>
-                    <p className="text-foreground/80 mb-4">You haven't uploaded any documents yet.</p>
-                    <button
-                      className="btn bg-accent hover:bg-blue-600 text-white px-6 py-2 rounded-lg"
-                      onClick={() => setActiveTab('uploads')}
-                    >
-                      Upload Your First Document
-                    </button>
-                  </div>
-                </div>
+              <h2 className="text-xl font-semibold text-foreground mb-2 flex items-center gap-2">
+                <i className="fas fa-database text-accent"></i> Storage Usage
+              </h2>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-foreground/80">Used</span>
+                <span className="text-sm text-foreground/60">{formatFileSize(totalStorageUsed)} / {formatFileSize(maxStorage)}</span>
+              </div>
+              <div className="w-full h-3 bg-accent/20 rounded-full mb-2">
+                <div
+                  className="h-3 bg-accent rounded-full transition-all duration-500"
+                  style={{ width: `${Math.min(100, (totalStorageUsed / maxStorage) * 100)}%` }}
+                ></div>
+              </div>
+            </div>
+            <div className="text-xs text-foreground/50 mt-2">100MB quota per user</div>
+          </div>
+
+          {/* Recent Activity Card */}
+          <div className="card p-6 flex flex-col shadow-lg hover:ring-2 hover:ring-accent transition">
+            <h2 className="text-xl font-semibold text-foreground mb-2 flex items-center gap-2">
+              <i className="fas fa-history text-accent"></i> Recent Activity
+            </h2>
+            <div className="flex-1 overflow-y-auto">
+              {recentDocuments.length === 0 ? (
+                <div className="text-foreground/60">No recent activity</div>
               ) : (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {documents.map((doc) => (
-                    <div key={doc.id} className="card p-6 hover:ring-2 hover:ring-accent transition-all duration-300">
-                      <div className="flex items-center mb-4">
-                        <div className="w-10 h-10 rounded bg-accent/20 flex items-center justify-center mr-3">
-                          <i className="fas fa-file-alt text-accent"></i>
-                        </div>
-                        <div className="truncate">
-                          <h3 className="font-medium text-foreground truncate">{doc.name}</h3>
-                          <p className="text-sm text-foreground/70">
-                            {doc.createdAt && ('toDate' in doc.createdAt) 
-                              ? new Date(doc.createdAt.toDate()).toLocaleDateString() 
-                              : (doc.createdAt instanceof Date) 
-                                ? doc.createdAt.toLocaleDateString()
-                                : 'Unknown date'} • {formatFileSize(doc.size)}
-                          </p>
-                        </div>
+                <ul className="space-y-2">
+                  {recentDocuments.map(doc => (
+                    <li key={doc.id} className="flex items-center justify-between bg-surface-alt rounded-lg px-3 py-2">
+                      <div className="flex items-center gap-2">
+                        <i className="fas fa-file-alt text-accent"></i>
+                        <span className="font-medium text-foreground text-sm">{doc.name}</span>
                       </div>
-                      <div className="flex justify-end space-x-2">
-                        <button className="btn p-2 bg-surface-alt hover:bg-surface/80 text-accent rounded">
-                          <i className="fas fa-download"></i>
-                        </button>
-                        <button className="btn p-2 bg-surface-alt hover:bg-surface/80 text-accent rounded">
-                          <i className="fas fa-share-alt"></i>
-                        </button>
-                        <button className="btn p-2 bg-surface-alt hover:bg-surface/80 text-red-500 rounded">
-                          <i className="fas fa-trash-alt"></i>
-                        </button>
-                      </div>
-                    </div>
+                      <a href={doc.url} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-accent/80 text-xs flex items-center gap-1">
+                        <i className="fas fa-download"></i> Download
+                      </a>
+                    </li>
                   ))}
-                </div>
+                </ul>
               )}
             </div>
-          )}
+          </div>
 
-          {activeTab === 'uploads' && (
-            <div>
-              <h2 className="text-xl font-semibold text-foreground mb-6">Upload Documents</h2>
-              
-              <div className="card p-8">
-                <div className="file-drop-area relative border-2 border-dashed border-accent/30 rounded-lg p-12 text-center hover:border-accent/60 transition-colors">
-                  <div className="flex flex-col items-center justify-center">
-                    <i className="fas fa-cloud-upload-alt text-accent text-4xl mb-4"></i>
-                    <p className="text-foreground/80 mb-2">Drag & drop your files here or click to browse</p>
-                    <p className="text-sm text-foreground/60 mb-4">Accepted formats: PDF, DOC, XLSX, Images, and more</p>
-                    
-                    <input
-                      type="file"
-                      id="file-input"
-                      className="hidden"
-                      onChange={handleFileUpload}
-                      disabled={isUploading}
-                    />
-                    
-                    <label
-                      htmlFor="file-input"
-                      className="btn bg-accent hover:bg-blue-600 text-white px-6 py-3 rounded-lg cursor-pointer"
-                    >
-                      {isUploading ? 'Uploading...' : 'Select Files'}
-                    </label>
-                  </div>
-                </div>
-                
-                {isUploading && (
-                  <div className="mt-6">
-                    <div className="flex justify-between mb-2">
-                      <span className="text-sm text-foreground/70">Uploading...</span>
-                      <span className="text-sm text-foreground/70">{uploadProgress}%</span>
-                    </div>
-                    <div className="w-full bg-surface-alt rounded-full h-2">
-                      <div
-                        className="bg-accent h-2 rounded-full"
-                        style={{ width: `${uploadProgress}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                )}
-              </div>
+          {/* Profile Card */}
+          <div className="card p-6 flex flex-col items-start shadow-lg hover:ring-2 hover:ring-accent transition">
+            <h2 className="text-xl font-semibold text-foreground mb-2 flex items-center gap-2">
+              <i className="fas fa-user-circle text-accent"></i> Profile
+            </h2>
+            <div className="mb-2">
+              <div className="font-medium text-foreground">{user?.displayName || 'User'}</div>
+              <div className="text-sm text-foreground/70">{user?.email}</div>
             </div>
-          )}
-
-          {activeTab === 'settings' && (
-            <div>
-              <h2 className="text-xl font-semibold text-foreground mb-6">Account Settings</h2>
-              
-              <div className="card p-8">
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-lg font-medium text-foreground mb-4">Personal Information</h3>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-sm font-medium text-foreground mb-1">Name</label>
-                        <input
-                          type="text"
-                          value={user?.displayName || ''}
-                          className="w-full p-3 rounded-lg focus:ring-2 focus:ring-accent bg-surface-alt text-foreground"
-                          readOnly
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-foreground mb-1">Email</label>
-                        <input
-                          type="email"
-                          value={user?.email || ''}
-                          className="w-full p-3 rounded-lg focus:ring-2 focus:ring-accent bg-surface-alt text-foreground"
-                          readOnly
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-lg font-medium text-foreground mb-4">Security</h3>
-                    <button className="btn bg-surface-alt hover:bg-surface/80 text-accent px-6 py-3 rounded-lg">
-                      Change Password
-                    </button>
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-lg font-medium text-foreground mb-4">Danger Zone</h3>
-                    <button className="btn bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg">
-                      Delete Account
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+            <div className="text-xs text-foreground/50">Role: user</div>
+            {/* Future: Add edit profile button here */}
+          </div>
         </div>
-      </main>
+
+        {/* Main Actions Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+          {/* Documents Card */}
+          <div className="card p-6 flex flex-col shadow-lg hover:ring-2 hover:ring-accent transition">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
+                <i className="fas fa-file-alt text-accent"></i> Your Documents
+              </h2>
+              <input
+                type="text"
+                placeholder="Search documents..."
+                className="p-2 rounded-lg border border-accent/30 focus:ring-accent focus:border-accent bg-surface-alt text-foreground text-sm"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                style={{ minWidth: 180 }}
+              />
+            </div>
+            <DocumentList documents={filteredDocuments} />
+          </div>
+          {/* Upload Card */}
+          <div className="card p-6 flex flex-col shadow-lg hover:ring-2 hover:ring-accent transition">
+            <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+              <i className="fas fa-cloud-upload-alt text-accent"></i> Upload New Document
+            </h2>
+            <FileUpload onUploadComplete={fetchUserDocuments} />
+          </div>
+        </div>
+      </div>
+      {/* Dashboard IT Support Footer */}
+      <div className="bg-surface-alt border-t border-accent/10 mt-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="text-foreground/70 text-sm mb-4 md:mb-0">
+              &copy; {new Date().getFullYear()} HSE Logistics. All rights reserved.
+            </div>
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center text-foreground/70 text-sm">
+                <i className="fas fa-headset text-accent mr-2"></i>
+                <span>IT Support:</span>
+                <a href="mailto:Support@aurorasma.com" className="text-accent hover:text-accent/70 ml-2 flex items-center">
+                  <i className="fas fa-envelope mr-1"></i>
+                  Support@aurorasma.com
+                </a>
+              </div>
+              <div className="flex items-center text-foreground/70 text-sm">
+                <a href="tel:7868129541" className="text-accent hover:text-accent/70 flex items-center">
+                  <i className="fas fa-phone-alt mr-1"></i>
+                  786-812-9541
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

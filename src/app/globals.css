@@ -2,54 +2,75 @@
 
 :root {
   /* Light mode (default) */
-  --background: #ffffff;
-  --foreground: #333333;
-  --accent: #0066cc;
-  --accent-secondary: #4BB543;
-  --surface: #F5F7FA;
-  --surface-alt: #EDF2F7;
-  --shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
-  --shadow-accent: 0 6px 20px 0 rgba(0, 102, 204, 0.15);
+  --background: #FDFDFD;
+  --foreground: #111111;
+  --accent: #007AFF;
+  --accent-secondary: #30D158;
+  --accent-tertiary: #FF6B6B;
+  --surface: rgba(255, 255, 255, 0.8);
+  --surface-alt: rgba(255, 255, 255, 0.6);
+  --text-secondary: #5A5A5A;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --glass-blur: 24px;
+  --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark {
   /* Dark mode */
-  --background: #1c1c1e;
-  --foreground: #e5e5ea;
-  --accent: #2997ff;
-  --accent-secondary: #4BB543;
-  --surface: #242426;
-  --surface-alt: #272729;
-  --shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
-  --shadow-accent: 0 6px 32px 0 rgba(41, 151, 255, 0.2);
+  --background: #121212;
+  --foreground: #E5E5E5;
+  --accent: #0A84FF;
+  --accent-secondary: #32D74B;
+  --accent-tertiary: #FF3B30;
+  --surface: rgba(255, 255, 255, 0.1);
+  --surface-alt: rgba(255, 255, 255, 0.05);
+  --text-secondary: #9A9A9A;
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --glass-blur: 32px;
 }
 
 /* Theme variables */
 :root {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+  --font-mono: "SF Mono", monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  transition: background 0.25s, color 0.25s;
+  font-family: var(--font-sans);
+  transition: var(--transition);
 }
 
-/* Card styling */
+/* Glass-morphic card styling */
 .card {
   background: var(--surface);
-  border-radius: 0.75rem;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: var(--shadow);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: var(--transition);
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-accent);
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Glass-morphic navigation */
+.glass-nav {
+  background: var(--surface);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: 0.5rem;
+  transition: var(--transition);
+}
+
+.glass-nav:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* File upload styles */
@@ -137,12 +158,30 @@ input:focus, select:focus, textarea:focus {
   outline: none;
 }
 
-/* Button styling */
+/* Glass-morphic button styling */
 .btn {
-  transition: transform 0.1s, background 0.2s;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.35s ease;
 }
 
 .btn:hover {
   transform: translateY(-1px);
+}
+
+.btn:hover::after {
+  transform: translateX(100%);
 }
 
